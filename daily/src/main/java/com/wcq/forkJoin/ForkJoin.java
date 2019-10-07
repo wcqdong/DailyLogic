@@ -11,6 +11,11 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 
+/**
+ * 多任务并行
+ *
+ * 不是很好用，每个子任务得达到一定数量（1000以上）和一定复杂度（耗时）的时候才能看出效果
+ */
 public class ForkJoin {
     static ForkJoinPool forkJoinPool = new ForkJoinPool(8);
 
