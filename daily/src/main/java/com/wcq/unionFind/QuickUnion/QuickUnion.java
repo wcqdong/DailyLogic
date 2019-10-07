@@ -7,7 +7,6 @@ import java.util.List;
 
 public class QuickUnion extends AbstractUnionFind {
 
-//    private Map<Long, ILinkPoint> id2Point = new HashMap<>();
     private ILinkPoint[] elements;
 
     public QuickUnion(List<ILinkPoint> points){
@@ -19,7 +18,6 @@ public class QuickUnion extends AbstractUnionFind {
             ILinkPoint point = points.get(i);
             point.setRelation(i);
             elements[i] = point;
-//            id2Point.put(point.getId(), point);
         }
     }
 
@@ -27,7 +25,7 @@ public class QuickUnion extends AbstractUnionFind {
     public ILinkPoint find(int point) {
         ILinkPoint root = elements[point];
         while(root.getRelation() != point){
-            point = (int)root.getRelation();
+            point = root.getRelation();
             root = elements[point];
         }
         return root;
@@ -35,14 +33,14 @@ public class QuickUnion extends AbstractUnionFind {
 
     @Override
     public void union(int p1, int p2) {
-        ILinkPoint point1 = find(p1);
-        ILinkPoint point2 = find(p2);
+        ILinkPoint root1 = find(p1);
+        ILinkPoint root2 = find(p2);
 
-        if(connected(point1, point2)){
+        if(connected(root1, root2)){
             return;
         }
-
-        point2.setRelation(point1.getRelation());
+        // root2的relation指向root
+        root2.setRelation(root1.getRelation());
 
         count--;
     }

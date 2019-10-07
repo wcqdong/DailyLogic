@@ -1,6 +1,6 @@
 package com.wcq.unionFind;
 
-public class Friend implements ILinkPoint<Integer> {
+public class Friend implements ILinkPoint {
 
     private long id;
 
@@ -11,12 +11,12 @@ public class Friend implements ILinkPoint<Integer> {
     }
 
     @Override
-    public Integer getRelation() {
+    public int getRelation() {
         return relation;
     }
 
     @Override
-    public void setRelation(Integer relation) {
+    public void setRelation(int relation) {
         this.relation = relation;
     }
 

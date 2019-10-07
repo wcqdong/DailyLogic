@@ -31,21 +31,21 @@ public class CompressPathWeightedQuickUnion extends AbstractUnionFind {
 
     @Override
     public ILinkPoint find(int point) {
-
-        int from = point;
+        // 保存起点
+        int tempPoint = point;
 
         ILinkPoint root = elements[point];
         while (root.getRelation() != point){
-            point = (int)root.getRelation();
+            point = root.getRelation();
             root = elements[point];
         }
 
         // 重新查找一遍，路径上的触点都指向root
-        ILinkPoint element = elements[from];
-        while (element.getRelation() != from){
-            from = (int)element.getRelation();
+        ILinkPoint element = elements[tempPoint];
+        while (element.getRelation() != tempPoint){
+            tempPoint = element.getRelation();
             element.setRelation(root.getRelation());
-            element = elements[from];
+            element = elements[tempPoint];
         }
 
         return root;
@@ -54,7 +54,7 @@ public class CompressPathWeightedQuickUnion extends AbstractUnionFind {
     @Override
     public void union(int p1, int p2) {
         ILinkPoint point1 = find(p1);
-        ILinkPoint point2 = elements[p2];
+        ILinkPoint point2 = find(p2);
 
         if(weights[p1] < weights[p2]){
             point1.setRelation(point2.getRelation());

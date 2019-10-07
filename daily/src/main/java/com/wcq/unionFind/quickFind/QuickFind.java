@@ -6,8 +6,6 @@ import com.wcq.unionFind.ILinkPoint;
 import java.util.List;
 
 public class QuickFind extends AbstractUnionFind {
-
-//    private Map<Long, ILinkPoint> id2Point = new HashMap<>();
     private ILinkPoint[] elements;
 
     public QuickFind(List<ILinkPoint> points){
@@ -19,29 +17,33 @@ public class QuickFind extends AbstractUnionFind {
             ILinkPoint point = points.get(i);
             point.setRelation(i);
             elements[i] = point;
-//            id2Point.put(point.getId(), point);
         }
     }
 
     @Override
     public ILinkPoint find(int point) {
-        return elements[point];
+        ILinkPoint linkPoint = elements[point];
+        // 下标指向自己（和自己的relation一样），说明自己就是根节点
+        if(linkPoint.getRelation() == point){
+            return linkPoint;
+        }
+        return elements[linkPoint.getRelation()];
     }
 
     @Override
     public void union(int p1, int p2) {
-        ILinkPoint point1 = find(p1);
-        ILinkPoint point2 = find(p2);
+        ILinkPoint root1 = find(p1);
+        ILinkPoint root2 = find(p2);
 
         // 关系相等，已经相同
-        if(point1.getRelation() == point2.getRelation()){
+        if(root1.getRelation() == root2.getRelation()){
             return;
         }
 
         // 把所有p2点的关系都改成p1的关系
         for (ILinkPoint e : elements) {
-            if(e.getRelation() == point2.getRelation()){
-                e.setRelation(point1.getRelation());
+            if(e.getRelation() == root2.getRelation()){
+                e.setRelation(root1.getRelation());
             }
         }
 
@@ -50,13 +52,9 @@ public class QuickFind extends AbstractUnionFind {
 
     @Override
     public boolean connected(int p1, int p2) {
-        ILinkPoint point1 = find(p1);
-        ILinkPoint point2 = find(p2);
+        ILinkPoint root1 = find(p1);
+        ILinkPoint root2 = find(p2);
 
-        return point1.getRelation() == point2.getRelation();
-    }
-
-    public boolean connected(ILinkPoint p1, ILinkPoint p2) {
-        return p1.getRelation() == p2.getRelation();
+        return root1.getRelation() == root2.getRelation();
     }
 }

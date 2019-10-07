@@ -1,7 +1,5 @@
 package com.wcq.baseCode;
 
-import sun.misc.BASE64Encoder;
-
 public class Base64 {
     public static void main(String[] args) {
         String s = "M";

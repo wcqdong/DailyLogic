@@ -32,7 +32,7 @@ public class WeightedQuickUinon extends AbstractUnionFind {
     public ILinkPoint find(int point) {
         ILinkPoint root = elements[point];
         while (root.getRelation() != point){
-            point = (int)root.getRelation();
+            point = root.getRelation();
             root = elements[point];
         }
 
@@ -43,7 +43,7 @@ public class WeightedQuickUinon extends AbstractUnionFind {
     public void union(int p1, int p2) {
         ILinkPoint point1 = find(p1);
         ILinkPoint point2 = elements[p2];
-
+        // 比较树深度
         if(weights[p1] < weights[p2]){
             point1.setRelation(point2.getRelation());
             weights[p2] += weights[p1];
