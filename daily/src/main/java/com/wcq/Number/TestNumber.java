@@ -12,6 +12,13 @@ public class TestNumber {
         double d = 2D;
 
         compareTo(c, d);
+
+        // Integer转object Object转long
+        Integer id = Integer.valueOf(1);
+
+        Object obj = id;
+        long id1 = ((Number)obj).longValue();
+        System.out.println(id1);
     }
 
     private  static <T extends Number> void compareTo(T a, T b) {

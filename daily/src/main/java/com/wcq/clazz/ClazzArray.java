@@ -16,4 +16,8 @@ public class ClazzArray {
     static Object get1(){
         return "1";
     }
+
+    public class tt{
+
+    }
 }
