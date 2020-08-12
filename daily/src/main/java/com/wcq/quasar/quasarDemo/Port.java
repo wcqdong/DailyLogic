@@ -1,7 +1,11 @@
 package com.wcq.quasar.quasarDemo;
 
+import co.paralleluniverse.common.util.SameThreadExecutorService;
+import co.paralleluniverse.fibers.FiberExecutorScheduler;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ExecutorService;
 
 public class Port extends Thread{
 
@@ -14,10 +18,14 @@ public class Port extends Thread{
 
     private Map<String, Service> services = new HashMap<>();
 //    private Map<String, PortFiber> fibers = new HashMap<>();
+    FiberExecutorScheduler fes;
 
     public Port(Node node, String portName){
         this.node = node;
         this.portName = portName;
+        ExecutorService ses = SameThreadExecutorService.getExecutorService();
+        this.fes = new FiberExecutorScheduler(this.portName, ses);
+
     }
     @Override
     public void run() {

@@ -58,6 +58,7 @@ public class StreamTest {
         String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat);
         // 求最小值，minValue = -3.0
         double minValue = Stream.of(-1.5, 1.0, -3.0, -2.0).reduce(Double.MAX_VALUE, Double::min);
+        double minValue1 = Stream.of(-1.5, 1.0, -3.0, -2.0).min(Double::compareTo).get();
         // 求和，sumValue = 10, 有起始值
         int sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
         // 求和，sumValue = 10, 无起始值
